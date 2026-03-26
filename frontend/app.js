@@ -27,8 +27,6 @@ throw error;
 async function initDashboard() {
 console.log('Initializing dashboard...');
 console.log("Connected to backend:", API_BASE_URL);
-
-```
 showLoadingText();
 
 await loadSummary();
@@ -37,7 +35,6 @@ await loadCostAnalysis();
 await loadRecommendations();
 
 updateLastUpdate();
-```
 
 }
 
@@ -55,8 +52,6 @@ async function loadSummary() {
 try {
 const response = await fetchWithRetry(`${API_BASE_URL}/summary`);
 const data = await response.json();
-
-```
     document.getElementById('totalResources').textContent = data.summary.total_resources;
     document.getElementById('totalIssues').textContent = data.summary.total_misconfigurations;
     document.getElementById('criticalIssues').textContent = `Critical: ${data.summary.critical_misconfigurations}`;
@@ -66,7 +61,6 @@ const data = await response.json();
 } catch (error) {
     console.error('Error loading summary:', error);
 }
-```
 
 }
 
@@ -75,8 +69,6 @@ async function loadSecurityAnalysis() {
 try {
 const response = await fetchWithRetry(`${API_BASE_URL}/security/analysis`);
 const data = await response.json();
-
-```
     document.getElementById('riskScore').textContent = data.overall_risk_score;
     document.getElementById('riskLevel').textContent = `Risk Level: ${data.risk_level}`;
 
@@ -88,7 +80,6 @@ const data = await response.json();
 } catch (error) {
     console.error(error);
 }
-```
 
 }
 
@@ -97,15 +88,12 @@ async function loadCostAnalysis() {
 try {
 const response = await fetchWithRetry(`${API_BASE_URL}/cost/analysis`);
 const data = await response.json();
-
-```
     createCostChart(data.cost_by_resource_type);
     displayOptimizationOpportunities(data.top_optimization_opportunities);
 
 } catch (error) {
     console.error(error);
 }
-```
 
 }
 
@@ -114,14 +102,11 @@ async function loadRecommendations() {
 try {
 const response = await fetchWithRetry(`${API_BASE_URL}/recommendations`);
 const data = await response.json();
-
-```
     displayRecommendations(data.security_recommendations, data.cost_recommendations);
 
 } catch (error) {
     console.error(error);
 }
-```
 
 }
 
@@ -129,8 +114,6 @@ const data = await response.json();
 function createSeverityChart(data) {
 const ctx = document.getElementById('severityChart').getContext('2d');
 if (severityChart) severityChart.destroy();
-
-```
 severityChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -140,7 +123,6 @@ severityChart = new Chart(ctx, {
         }]
     }
 });
-```
 
 }
 
