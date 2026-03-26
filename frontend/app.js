@@ -112,18 +112,24 @@ const data = await response.json();
 
 // Charts
 function createSeverityChart(data) {
-const ctx = document.getElementById('severityChart').getContext('2d');
-if (severityChart) severityChart.destroy();
-severityChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: Object.keys(data),
-        datasets: [{
-            data: Object.values(data)
-        }]
-    }
-});
+    const ctx = document.getElementById('severityChart').getContext('2d');
 
+    if (severityChart) severityChart.destroy();
+
+    severityChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Critical', 'High', 'Medium', 'Low'],
+            datasets: [{
+                data: [
+                    data.critical || 0,
+                    data.high || 0,
+                    data.medium || 0,
+                    data.low || 0
+                ]
+            }]
+        }
+    });
 }
 
 function createCostChart(data) {
